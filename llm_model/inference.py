@@ -1,16 +1,19 @@
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch
+import os
 
-SAVE_PATH = "/content/drive/MyDrive/llm_next_word_project"
+# Path relative to project root (Docker & local safe)
+MODEL_PATH = os.getenv("MODEL_PATH", "llm_model/saved_model")
 
-tokenizer = GPT2Tokenizer.from_pretrained(SAVE_PATH)
-model = GPT2LMHeadModel.from_pretrained(SAVE_PATH)
+# Load tokenizer and model
+tokenizer = GPT2Tokenizer.from_pretrained(MODEL_PATH)
+model = GPT2LMHeadModel.from_pretrained(MODEL_PATH)
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model.to(device)
 model.eval()
 
-def predict_next_words_llm(prompt, max_new_tokens=50):
+def predict_next_words_llm(prompt: str, max_new_tokens: int = 50) -> str:
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
 
     with torch.no_grad():
@@ -20,16 +23,8 @@ def predict_next_words_llm(prompt, max_new_tokens=50):
             do_sample=True,
             top_k=50,
             top_p=0.95,
-            temperature=0.8
+            temperature=0.8,
+            pad_token_id=tokenizer.eos_token_id
         )
 
-    return tokenize
-  r.decode(output[0], skip_special_tokens=True)
-
-print(predict_next_words_llm("India is"))
-// Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
-India is a large island of temperate waters , with a range of temperate and temperate systems in which the sea ranges from a low point of the Earth 's crust to a maximum depth of 30 m ( 27 ft ) . The climate is temperate
-
-print(predict_next_words_llm("Technology will"))
-// Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
-Technology will allow AI to increase in areas where AI is not sufficiently capable to compete in the marketplace . AI is not alone in this arena , but it will continue to improve in other fields , and in other areas where AI is not sufficiently capable to compete in the
+    return tokenizer.decode(output[0], skip_special_tokens=True)
