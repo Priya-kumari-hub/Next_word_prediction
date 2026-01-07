@@ -66,4 +66,4 @@ Characteristics:
 
 ## Example Output Comparison
 
-Input Prompt:
+Input Prompt:   "India is"
