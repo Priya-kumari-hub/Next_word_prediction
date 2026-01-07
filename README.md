@@ -103,23 +103,23 @@ LLM Output:    India is a diverse country with a rich cultural heritage and a ra
 project-root/
 │
 ├── lstm_model/
-│ ├── training.ipynb
-│ ├── inference.py
-│ └── tokenizer.pkl
+│   ├── training.ipynb
+│   ├── inference.py
+│   └── tokenizer.pkl
 │
 ├── llm_model/
-│ ├── llm_next_word_finetuning.py
-│ ├── inference.py
-│ ├── requirements.txt
-│ └── saved_model/
-│ └── .gitignore
+│   ├── llm_next_word_finetuning.py
+│   ├── inference.py
+│   ├── requirements.txt
+│   └── saved_model/
+│       └── .gitignore
 │
 ├── api/
-│ └── app.py
+│   └── app.py
 │
 ├── .github/
-│ └── workflows/
-│ └── docker-build.yml
+│   └── workflows/
+│       └── docker-build.yml
 │
 ├── Dockerfile
 ├── requirements.txt
