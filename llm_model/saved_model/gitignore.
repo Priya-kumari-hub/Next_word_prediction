@@ -1,3 +1,4 @@
 *.bin
 *.pt
 *.keras
+__pycache__/
